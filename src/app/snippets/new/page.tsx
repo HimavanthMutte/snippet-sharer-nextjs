@@ -36,7 +36,11 @@ export default function SnippetCreatePage() {
             id="code"
           />
         </div>
-        {formState.message && <p>Error: {formState.message}</p>}
+        {formState.message && (
+          <p className="py-3 px-2 bg-red-100 border border-red-500">
+            Error: {formState.message}
+          </p>
+        )}
         <button type="submit" className="border rounded p-2 bg-blue-200">
           Create
         </button>
