@@ -10,7 +10,7 @@
     "postinstall": "prisma skills sync || exit 0"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.6.0",
+    "@monaco-editor/react": "^4.7.0",
     "@prisma/client": "^6.19.3",
     "next": "^15.5.7",
     "react": "^19.0.0",
