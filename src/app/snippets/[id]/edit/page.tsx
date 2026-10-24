@@ -1,3 +1,7 @@
+import { db } from "@/db";
+
+import { notFound } from "next/navigation";
+
 type SnippetEditPageProps = {
   params: Promise<{
     id: string;
@@ -6,5 +10,12 @@ type SnippetEditPageProps = {
 
 export default async function SnippetEditPage(props: SnippetEditPageProps) {
   const { id } = await props.params;
-  return <div>Editing Snippet - {id}</div>;
+
+  const snippet = await db.snippet.findFirst({
+    where: { id: parseInt(id) },
+  });
+
+  if (!snippet) return notFound();
+
+  return <div>Editing Snippet - {snippet.title}</div>;
 }
