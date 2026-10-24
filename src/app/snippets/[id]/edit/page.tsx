@@ -2,6 +2,10 @@ import { db } from "@/db";
 
 import { notFound } from "next/navigation";
 
+import type { Snippet } from "@/generated/prisma";
+
+import { redirect } from "next/navigation";
+
 import SnippetEditForm from "@/components/SnippetEditForm";
 
 type SnippetEditPageProps = {
@@ -10,7 +14,25 @@ type SnippetEditPageProps = {
   }>;
 };
 
+type updateSnippetParams = Omit<Snippet, "title">;
+
 export default async function SnippetEditPage(props: SnippetEditPageProps) {
+  async function updateSnippet({
+    id,
+    code,
+  }: updateSnippetParams): Promise<void> {
+    "use server";
+    await db.snippet.update({
+      where: {
+        id,
+      },
+      data: {
+        code,
+      },
+    });
+    redirect(`/snippets/${id}`);
+  }
+
   const { id } = await props.params;
 
   const snippet = await db.snippet.findFirst({
@@ -21,7 +43,7 @@ export default async function SnippetEditPage(props: SnippetEditPageProps) {
 
   return (
     <div>
-      <SnippetEditForm snippet={snippet} />
+      <SnippetEditForm snippet={snippet} onSubmit={updateSnippet} />
     </div>
   );
 }
