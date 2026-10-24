@@ -2,6 +2,8 @@ import { db } from "@/db";
 
 import { notFound } from "next/navigation";
 
+import SnippetEditForm from "@/components/SnippetEditForm";
+
 type SnippetEditPageProps = {
   params: Promise<{
     id: string;
@@ -17,5 +19,9 @@ export default async function SnippetEditPage(props: SnippetEditPageProps) {
 
   if (!snippet) return notFound();
 
-  return <div>Editing Snippet - {snippet.title}</div>;
+  return (
+    <div>
+      <SnippetEditForm snippet={snippet} />
+    </div>
+  );
 }
