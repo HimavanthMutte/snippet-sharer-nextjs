@@ -25,22 +25,34 @@ export default async function SnippetShowPage(props: SnippetShowPageProps) {
   const deleteSnippetAction = deleteSnippet.bind(null, id);
 
   return (
-    <div>
-      <div className="flex m-4 justify-between items-center">
-        <h1 className="text-xl font-bold">{snippet.title}</h1>
-        <div className="flex gap-4">
-          <button className="p-2 border rounded">
+    <main>
+      <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div>
+          <Link
+            href="/"
+            className="mb-3 inline-flex text-sm text-slate-400 transition hover:text-emerald-300"
+          >
+            <span aria-hidden="true" className="mr-2">←</span> All snippets
+          </Link>
+          <h1 className="break-words text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            {snippet.title}
+          </h1>
+        </div>
+        <div className="flex gap-3">
+          <button className="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900">
             <Link href={`/snippets/${snippet.id}/edit`}>Edit</Link>
           </button>
           <form action={deleteSnippetAction}>
-            <button className="p-2 border rounded">Delete</button>
+            <button className="rounded-lg border border-rose-900/80 px-4 py-2 text-sm font-medium text-rose-300 transition hover:border-rose-700 hover:bg-rose-950/50">
+              Delete
+            </button>
           </form>
         </div>
       </div>
-      <pre className="p-3 border rounded bg-gray-200 border-gray-200">
-        <code>{snippet.code}</code>
+      <pre className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900 p-5 text-sm leading-7 text-emerald-100 shadow-2xl shadow-black/20 sm:p-6">
+        <code className="font-mono">{snippet.code}</code>
       </pre>
-    </div>
+    </main>
   );
 }
 
