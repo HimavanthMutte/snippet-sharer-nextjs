@@ -3,6 +3,8 @@ import { db } from "@/db";
 
 import { redirect } from "next/navigation";
 
+import { revalidatePath } from "next/cache";
+
 export default async function createSnippet(
   formState: {
     message: string;
@@ -27,5 +29,6 @@ export default async function createSnippet(
       code,
     },
   });
+  revalidatePath("/");
   redirect("/");
 }
